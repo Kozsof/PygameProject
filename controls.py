@@ -1,6 +1,8 @@
 import pygame, sys, time
 from bullet import Bullet
 from ino import Ino
+from menu import Menu
+from scores import Scores
 
 
 def events(screen, gun, bullets):
@@ -72,7 +74,7 @@ def gun_kill(stats, screen, score, gun, inos, bullets):
         time.sleep(1)
     else:
         stats.run_game = False
-        sys.exit()
+        game_over(score, stats)
 
 
 def update_army(stats, screen, score, gun, inos, bullets):
@@ -81,6 +83,7 @@ def update_army(stats, screen, score, gun, inos, bullets):
     if pygame.sprite.spritecollideany(gun, inos):
         gun_kill(stats, screen, score, gun, inos, bullets)
     inos_came(stats, screen, score, gun, inos, bullets)
+
 
 def inos_came(stats, screen, score, gun, inos, bullets):
     """Добрались ли пришельцы по конца экрана"""
@@ -115,6 +118,41 @@ def chack_hight_score(stats, score):
     if stats.score > stats.high_score:
         stats.high_score = stats.score
         score.image_high_score()
-        with open('high_score.txt', 'w') as f:
+        with open('saving_statistics/high_score.txt', 'w') as f:
             f.write(str(stats.high_score))
 
+
+def game_over(score, stats):
+    """создаем экран"""
+    pygame.init()
+    screen_width = 500
+    screen_height = 650
+    image = pygame.image.load("images/game_over.png").convert()
+    ar = pygame.font.SysFont("ar", 80)
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    back_ground_color = (0, 0, 0)
+    menu = Menu()
+    clock = pygame.time.Clock()
+    menu.append_option("Выйти", quit, ar)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    menu.switch(1)
+                if event.key == pygame.K_UP:
+                    menu.switch(-1)
+                if event.key == pygame.K_SPACE:
+                    menu.select()
+                    return
+
+
+        screen.fill(back_ground_color)
+        screen.blit(image, (0, 50))
+        score.show_final_score()
+        menu.draw(screen, 170, 500, 100)
+        pygame.display.flip()
+        clock.tick(50)

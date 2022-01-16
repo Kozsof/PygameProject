@@ -36,18 +36,31 @@ class Scores:
             life.rect.y = 20
             self.lives.add(life)
 
-
     def show_score(self):
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.lives.draw(self.screen)
+
+    def show_final_score(self):
+        self.font = pygame.font.SysFont("centuryschoolbook", 60)
+        self.your_image = self.font.render(f"Your score", True, self.text_color, "black")
+        self.your_rect = self.your_image.get_rect()
+        self.your_rect.left = self.screen_rect.left + 130
+        self.your_rect.top = 200
+
+        self.score_image = self.font.render(f"< {str(self.stats.score)} >", True, self.text_color, "black")
+        self.score_rect = self.score_image.get_rect()
+        self.score_rect.left = self.screen_rect.left + 200
+        self.score_rect.top = 325
+        self.screen.blit(self.your_image, self.your_rect)
+        self.screen.blit(self.score_image, self.score_rect)
 
 
 class Life(Sprite):
     def __init__(self, screen):
         super(Life, self).__init__()
         self.screen = screen
-        self.image = pygame.image.load("heart.png")
+        self.image = pygame.image.load("images/heart.png")
         self.rect = self.image.get_rect()
         self.screen_rect = self.screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx

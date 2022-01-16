@@ -118,7 +118,7 @@ def chack_hight_score(stats, score):
     if stats.score > stats.high_score:
         stats.high_score = stats.score
         score.image_high_score()
-        with open('saving_statistics/high_score.txt', 'w') as f:
+        with open('high_score.txt', 'w') as f:
             f.write(str(stats.high_score))
 
 
@@ -127,7 +127,7 @@ def game_over(score, stats):
     pygame.init()
     screen_width = 500
     screen_height = 650
-    image = pygame.image.load("images/game_over.png").convert()
+    image = pygame.image.load("game_over.png").convert()
     ar = pygame.font.SysFont("ar", 80)
     screen = pygame.display.set_mode((screen_width, screen_height))
     back_ground_color = (0, 0, 0)

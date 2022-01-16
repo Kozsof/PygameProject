@@ -59,11 +59,11 @@ def start_screen():
     menu.append_option("Начать", lambda: print("start-->>"), ar)
     menu.append_option("Выйти", quit, ar)
     all_sprites = pygame.sprite.Group()
-    image1 = pygame.image.load("images/uk.png").convert()
-    image2 = pygame.image.load("images/uk2.png").convert()
-    slime = pygame.image.load("images/slime.png").convert()
-    slime2 = pygame.image.load("images/slime2.png").convert()
-    planet = AnimatedSprite(load_image("images/planet.png", -1), 8, 8, 200, 300, all_sprites)
+    image1 = pygame.image.load("uk.png").convert()
+    image2 = pygame.image.load("uk2.png").convert()
+    slime = pygame.image.load("slime.png").convert()
+    slime2 = pygame.image.load("slime2.png").convert()
+    planet = AnimatedSprite(load_image("planet.png", -1), 8, 8, 200, 300, all_sprites)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -95,7 +95,7 @@ def run():
     screen_height = 650
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Invasion")
-    icon = pygame.image.load("images/zast.png")
+    icon = pygame.image.load("zast.png")
     pygame.display.set_icon(icon)
     back_ground_color = (0, 0, 0)
     gun = Gun(screen)
